@@ -1,0 +1,50 @@
+﻿@page "/temperatures"
+@inject HttpClient Http
+
+<h1>Meassured Temperatures from water pump</h1>
+
+<p>This component demonstrates fetching data from the server trough api's.</p>
+
+@if (temperatureMeassured == null)
+{
+    <p><em>Loading failed...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Tank temp</th>
+                <th>VP tur temp</th>
+                <th>VP retur temp</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var temp in temperatureMeassured)
+            {
+                <tr>
+                    <td>@temp.SensorTankTimeStamp</td>
+                    <td>@temp.SensorTankTemp</td>
+                    <td>@temp.SensorVpTurTemp</td>
+                    <td>@temp.SensorVpReturTemp</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private TemperatureSensors[] temperatureMeassured;
+    string baseUrl = "https://smarthouse.slettebakk.com/";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await load();
+    }
+
+    protected async Task load()
+    {
+        temperatureMeassured = await Http.GetJsonAsync<TemperatureSensors[]>($"{baseUrl}api/TemperatureSensors/");
+    }
+}
