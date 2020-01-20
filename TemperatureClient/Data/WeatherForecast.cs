@@ -1,6 +1,6 @@
 using System;
 
-namespace TemperatureAPI
+namespace WebCore.Data
 {
     public class WeatherForecast
     {

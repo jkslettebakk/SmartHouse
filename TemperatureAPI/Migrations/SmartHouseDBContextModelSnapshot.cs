@@ -15,7 +15,7 @@ namespace TemperatureAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -26,10 +26,10 @@ namespace TemperatureAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("IndorTemperature")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(4,1)");
 
                     b.Property<decimal>("OutdorTemperature")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(4,1)");
 
                     b.Property<decimal>("SensorGulvReturTankTemp")
                         .HasColumnType("decimal(5,2)");
@@ -56,25 +56,25 @@ namespace TemperatureAPI.Migrations
                     b.HasData(
                         new
                         {
-                            TemperatureId = new Guid("087ee367-8a60-4320-9c42-6e699f56c08a"),
+                            TemperatureId = new Guid("707bb273-be8c-4d87-81db-5947cb6d2215"),
                             IndorTemperature = 22.5m,
                             OutdorTemperature = -3.6m,
                             SensorGulvReturTankTemp = 34.3m,
                             SensorGulvTurTankTemp = 37.4m,
                             SensorTankTemp = 37.3m,
-                            SensorTankTimeStamp = new DateTime(2019, 12, 17, 20, 44, 18, 660, DateTimeKind.Local).AddTicks(1643),
+                            SensorTankTimeStamp = new DateTime(2020, 1, 19, 15, 25, 18, 553, DateTimeKind.Local).AddTicks(9364),
                             SensorVpReturTemp = 37.2m,
                             SensorVpTurTemp = 40.1m
                         },
                         new
                         {
-                            TemperatureId = new Guid("37935608-27ae-4f44-86fc-45ac8fd6d5c4"),
+                            TemperatureId = new Guid("24f1d0be-c252-44d8-b2a0-40761071d0c3"),
                             IndorTemperature = 22.6m,
                             OutdorTemperature = -3.7m,
                             SensorGulvReturTankTemp = 34.4m,
                             SensorGulvTurTankTemp = 38.5m,
                             SensorTankTemp = 38.1m,
-                            SensorTankTimeStamp = new DateTime(2019, 12, 17, 20, 44, 18, 662, DateTimeKind.Local).AddTicks(3544),
+                            SensorTankTimeStamp = new DateTime(2020, 1, 19, 15, 25, 18, 556, DateTimeKind.Local).AddTicks(691),
                             SensorVpReturTemp = 38.3m,
                             SensorVpTurTemp = 41.2m
                         });

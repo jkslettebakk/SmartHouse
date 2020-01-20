@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 
 namespace TemperatureAPI
 {
@@ -27,8 +21,20 @@ namespace TemperatureAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<SmartHouseDBContext>(option =>
-           option.UseSqlServer(Configuration.GetConnectionString("SeriesDatabaseConnection")));
+            
+            services.AddDbContext<SmartHouseDBContext>(option => 
+                option.UseSqlServer(Configuration.GetConnectionString("SmartHouseDatabaseConnection"))); //SeriesDatabaseConnection
+
+            services.AddMvc(options =>
+            {
+                options.FormatterMappings.SetMediaTypeMappingForFormat
+                    ("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat
+                    ("config", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat
+                    ("js", MediaTypeHeaderValue.Parse("application/json"));
+            })
+                .AddXmlSerializerFormatters();
 
             // Add CORS (Cross Domain Access to the API)
             services.AddCors(o => o.AddPolicy("Policy", builder => {

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Temperatures", "Temperature
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureAPI", "TemperatureAPI\TemperatureAPI.csproj", "{9C9B0B5E-FB95-43D8-9CD9-30A21A212876}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperatureClient", "TemperatureClient\TemperatureClient.csproj", "{10FA2125-6A9D-4845-9823-D41A0E974512}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureClient", "TemperatureClient\TemperatureClient.csproj", "{10FA2125-6A9D-4845-9823-D41A0E974512}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

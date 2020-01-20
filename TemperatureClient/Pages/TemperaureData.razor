@@ -1,29 +1,32 @@
-﻿@page "/temperatureListing"
+﻿@page "/temperatureData"
 @inject HttpClient Http
 
-<h1>Meassured Temperatures from water pump</h1>
+<h1>Show graph from SmartHouse sensors</h1>
 
 <p>This component demonstrates fetching data from the server trough api's.</p>
 
 @if (temperatureMeassured == null)
 {
-    <p>
-        <em>Loading data...</em>
-    </p>
+    <p><em>Loading....</em></p>
 }
 else
 {
+    <div>
+        <p>Number of temperature meassurments is @TemperatureMeassurements</p>
+
+    </div>
+
     <table class="table">
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Tank temp</th>
-                <th>VP tur temp</th>
-                <th>VP retur temp</th>
-                <th>VP Gulv retur</th>
-                <th>VP Gulv tur</th>
-                <th>Innendørs</th>
-                <th>Outdor</th>
+                <th>VP trip tmp.</th>
+                <th>VP return tmp.</th>
+                <th>VP Floor return</th>
+                <th>VP Floor trip</th>
+                <th>Inndoor</th>
+                <th>Outdoor</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +50,7 @@ else
 @code {
     private TemperatureSensors[] temperatureMeassured;
     string baseUrl = "https://smarthouseapi.slettebakk.com/";
+    int TemperatureMeassurements;
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,7 +60,8 @@ else
     protected async Task load()
     {
         temperatureMeassured = await Http.GetJsonAsync<TemperatureSensors[]>($"{baseUrl}api/TemperatureSensors");
-        temperatureMeassured = temperatureMeassured.OrderByDescending(x => x.SensorTankTimeStamp).ToArray();
 
+        TemperatureMeassurements = temperatureMeassured.Length;
     }
+
 }

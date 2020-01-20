@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Mime;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,15 +24,33 @@ namespace TemperatureAPI.Controllers
             _context = context;
         }
 
-        // GET: api/TemperatureSensors
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TemperatureSensors>>> Gettemperatures()
+        // GET api/TemperatureSensors/version
+        [HttpGet("version")]
+        public string Version()
         {
-            return await _context.TemperaturesNamespace.ToListAsync();
+            return "Version 1.0.0";
         }
 
-        // GET: api/TemperatureSensors/5
-        [HttpGet("{id}")]
+
+        // GET: api/TemperatureSensors
+        [FormatFilter]
+        [HttpGet]
+        [HttpGet("/api/[controller].{format}")] // GET: api/TemperatureSensors[.xml, .js or .json][?number=[number]]
+        [HttpHead]
+        public async Task<ActionResult<IEnumerable<TemperatureSensors>>> Gettemperatures(int number)
+        {
+
+            if (number <= 0) number = 100; // Returning default 100 records
+
+            return await _context.TemperaturesNamespace
+                .OrderByDescending(x => x.SensorTankTimeStamp)
+                .Take(number)
+                .ToListAsync();
+        }
+
+        // GET: api/TemperatureSensors/5[.xml, .js or .json]
+        [FormatFilter]
+        [HttpGet("{id}.{format?}")]
         public async Task<ActionResult<TemperatureSensors>> GetTemperatureSensors(Guid id)
         {
             var temperatureSensors = await _context.TemperaturesNamespace.FindAsync(id);

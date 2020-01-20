@@ -1,0 +1,35 @@
+﻿@page "/TemperatureGoogleGraph"
+@using TemperaturesNamespace
+@inject HttpClient Http
+
+<h3>TemperatureGoogleGraph</h3>
+
+<p>Click the button to print to the JavaScript console using C#</p>
+
+<button class="btn btn-primary" @onclick="WriteToConsole">Click me</button>
+
+
+
+@code {
+
+    private TemperatureSensors[] temperatureMeassured;
+    string baseUrl = "https://smarthouseapi.slettebakk.com/";
+
+    void WriteToConsole()
+    {
+        Console.WriteLine("Writing to javascript console using C#");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await load();
+    }
+
+    protected async Task load()
+    {
+        temperatureMeassured = await Http.GetJsonAsync<TemperatureSensors[]>
+            ($"{baseUrl}api/TemperatureSensors");
+        temperatureMeassured = temperatureMeassured.OrderByDescending(x => x.SensorTankTimeStamp).ToArray();
+
+    }
+}

@@ -117,6 +117,22 @@ app {
     color: red;
 }
 
+.dotRed {
+    height: 15px;
+    width: 15px;
+    background-color: rgb(219, 17, 17);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dotGreen {
+    height: 15px;
+    width: 15px;
+    background-color: rgb(74, 219, 17);
+    border-radius: 50%;
+    display: inline-block;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
